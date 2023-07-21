@@ -128,6 +128,20 @@ function fetchFollowingPosts() {
     });
 }     
 
+//  Function to fetch user's own posts
+function fetchMyPosts() {
+  fetch(`https://jsonplaceholder.typicode.com/posts?userId=${loggedInUser.id}`)
+    .then((response) => response.json())
+    .then((posts) => {
+      renderMyPosts(posts);
+    })
+    .catch((error) => {
+      console.error("Error fetching user's posts:", error);
+      alert("Failed to fetch user's posts. Please try again later.");
+    });
+}
+
+
 // Function to fetch user profile data
 function fetchUserProfile() {
     fetch(`https://jsonplaceholder.typicode.com/users/${loggedInUser.id}`)
