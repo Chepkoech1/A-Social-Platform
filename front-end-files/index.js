@@ -164,9 +164,9 @@ profileLink.addEventListener("click", () => {
   showSection("profile");
 });
 
-// Set initial state of the application
-let loggedInUser = null;
-showSection("login-section");
+// // Set initial state of the application
+// let loggedInUser = null;
+// showSection("login-section");
 
 
 // Event listener for login form submission
