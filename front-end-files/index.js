@@ -83,3 +83,15 @@ function handleLogout() {
       followingSection.appendChild(postElement);
     }
 }
+
+// Function to render posts in the "My Posts" section
+function renderMyPosts(posts) {
+    const myPostsSection = document.getElementById("my-posts");
+    myPostsSection.innerHTML = "<h2>My Posts</h2>";
+    for (const post of posts) {
+      const postElement = document.createElement("div");
+      postElement.className = "my-posts-item";
+      postElement.innerHTML = `<h3>${post.title}</h3><p>${post.body}</p>`;
+      myPostsSection.appendChild(postElement);
+    }
+}
