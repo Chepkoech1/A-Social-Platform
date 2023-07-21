@@ -125,4 +125,5 @@ function fetchFollowingPosts() {
       .catch((error) => {
         console.error("Error fetching following posts:", error);
         alert("Failed to fetch following posts. Please try again later.");
-      });
+    });
+}     
