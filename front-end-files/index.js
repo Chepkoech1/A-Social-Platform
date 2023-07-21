@@ -127,3 +127,56 @@ function fetchFollowingPosts() {
         alert("Failed to fetch following posts. Please try again later.");
     });
 }     
+
+// Function to fetch user profile data
+function fetchUserProfile() {
+    fetch(`https://jsonplaceholder.typicode.com/users/${loggedInUser.id}`)
+      .then((response) => response.json())
+      .then((user) => {
+        renderProfile(user);
+      })
+      .catch((error) => {
+        console.error("Error fetching user profile:", error);
+        alert("Failed to fetch user profile. Please try again later.");
+    });
+}
+
+
+
+// Event listener for "Following" link
+const followingLink = document.querySelector('a[href="#following"]');
+followingLink.addEventListener("click", () => {
+  fetchFollowingPosts();
+  showSection("following");
+});
+
+// Event listener for "My Posts" link
+const myPostsLink = document.querySelector('a[href="#my-posts"]');
+myPostsLink.addEventListener("click", () => {
+  fetchMyPosts();
+  showSection("my-posts");
+});
+
+// Event listener for "Profile" link
+const profileLink = document.querySelector('a[href="#profile"]');
+profileLink.addEventListener("click", () => {
+  fetchUserProfile();
+  showSection("profile");
+});
+
+// Set initial state of the application
+let loggedInUser = null;
+showSection("login-section");
+
+
+// Event listener for login form submission
+const loginForm = document.getElementById("login-form");
+loginForm.addEventListener("submit", handleLogin);
+
+// Event listener for Logout link
+const logoutLink = document.querySelector('a[href="#logout"]');
+logoutLink.addEventListener("click", handleLogout);
+
+// Set initial state of the application
+let loggedInUser = null;
+showSection("login-section");
