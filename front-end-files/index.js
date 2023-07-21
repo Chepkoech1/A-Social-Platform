@@ -52,3 +52,17 @@ function handleLogin(event) {
         alert("Failed to fetch user data. Please try again later.");
     });
 }
+
+// Function to fetch posts
+function fetchPosts() {
+    fetch("https://jsonplaceholder.typicode.com/posts")
+      .then((response) => response.json())
+      .then((posts) => {
+        renderFeed(posts.slice(0, 20));
+        // Render the posts in the "Feed" section
+      })
+      .catch((error) => {
+        console.error("Error fetching posts:", error);
+        alert("Failed to fetch posts. Please try again later.");
+    });
+}
