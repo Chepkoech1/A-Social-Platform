@@ -100,8 +100,29 @@ function renderMyPosts(posts) {
 function renderProfile(user) {
     const profileSection = document.getElementById("profile");
     profileSection.innerHTML = `<h2>Profile</h2>
-      <p>Username: ${user.username}</p>
-      <p>Email: ${user.email}</p>
-      <p>Zip-code: ${user.address.zipcode}</p>
-      <p>Membership: ${user.premium ? "Premium" : "Free"}</p>`;
-  }
+    <p>Username: ${user.username}</p>
+    <p>Email: ${user.email}</p>
+    <p>Zip-code: ${user.address.zipcode}</p>
+    <p>Membership: ${user.premium ? "Premium" : "Free"}</p>`;
+}
+
+// Function to fetch posts for following
+function fetchFollowingPosts() {
+    // Replace the followingUserIds with the IDs of users being followed
+    const followingUserIds = [2, 3, 4];
+    const followingPosts = [];
+  
+    fetch("https://jsonplaceholder.typicode.com/posts")
+      .then((response) => response.json())
+      .then((posts) => {
+        for (const post of posts) {
+          if (followingUserIds.includes(post.userId)) {
+            followingPosts.push(post);
+          }
+        }
+        renderFollowing(followingPosts);
+      })
+      .catch((error) => {
+        console.error("Error fetching following posts:", error);
+        alert("Failed to fetch following posts. Please try again later.");
+      });
