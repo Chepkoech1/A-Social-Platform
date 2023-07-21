@@ -66,3 +66,20 @@ function fetchPosts() {
         alert("Failed to fetch posts. Please try again later.");
     });
 }
+
+// Function to handle Logout
+function handleLogout() {
+    loggedInUser = null;
+    showSection("logout");
+  }
+  // Function to render posts in the "Following" section
+  function renderFollowing(posts) {
+    const followingSection = document.getElementById("following");
+    followingSection.innerHTML = "<h2>Following</h2>";
+    for (const post of posts) {
+      const postElement = document.createElement("div");
+      postElement.className = "following-item";
+      postElement.innerHTML = `<h3>${post.title}</h3><p>${post.body}</p>`;
+      followingSection.appendChild(postElement);
+    }
+}
