@@ -95,3 +95,13 @@ function renderMyPosts(posts) {
       myPostsSection.appendChild(postElement);
     }
 }
+
+// Function to render the user's profile
+function renderProfile(user) {
+    const profileSection = document.getElementById("profile");
+    profileSection.innerHTML = `<h2>Profile</h2>
+      <p>Username: ${user.username}</p>
+      <p>Email: ${user.email}</p>
+      <p>Zip-code: ${user.address.zipcode}</p>
+      <p>Membership: ${user.premium ? "Premium" : "Free"}</p>`;
+  }
