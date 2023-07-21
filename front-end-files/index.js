@@ -1,3 +1,6 @@
+// declare variable for loggedin user
+let loggedInUser = null;
+
 // Function to toggle visibility of the sections
 function showSection(sectionId) {
     const sections = document.querySelectorAll("section");
@@ -43,6 +46,7 @@ function handleLogin(event) {
           loggedInUser = foundUser;
           showSection("feed");
           fetchPosts();
+          showPremiumButton();
         } else {
           alert("Invalid credentials. Please try again.");
         }
@@ -152,14 +156,36 @@ function fetchUserProfile() {
       .catch((error) => {
         console.error("Error fetching user profile:", error);
         alert("Failed to fetch user profile. Please try again later.");
-    });
+  });
 }
 
 
+// Function to handle premium membership upgrade (Mock payment)
+function handleUpgradeToPremium() {
+  // Replace this with actual payment processing logic
+  loggedInUser.premium = true;
+  showPremiumButton(); // Hide the premium membership button after upgrading
+  alert("Congratulations! You are now a premium member.");
+}
+
+// Function to toggle the visibility of the premium button based on membership status
+function showPremiumButton() {
+  const premiumBtn = document.getElementById("premium-btn");
+  if (loggedInUser && !loggedInUser.premium) {
+    premiumBtn.classList.remove("hidden");
+  } else {
+    premiumBtn.classList.add("hidden");
+  }
+}
+
+// Event listener for premium membership button
+const premiumBtn = document.getElementById("premium-btn");
+premiumBtn.addEventListener("click", handleUpgradeToPremium);
+
 
 // Event listener for "Following" link
-const followingLink = document.querySelector('a[href="#following"]');
-followingLink.addEventListener("click", () => {
+  const followingLink = document.querySelector('a[href="#following"]');
+  followingLink.addEventListener("click", () => {
   fetchFollowingPosts();
   showSection("following");
 });
@@ -192,5 +218,5 @@ const logoutLink = document.querySelector('a[href="#logout"]');
 logoutLink.addEventListener("click", handleLogout);
 
 // Set initial state of the application
-let loggedInUser = null;
+// let loggedInUser = null;
 showSection("login-section");
