@@ -3,19 +3,20 @@ let loggedInUser = null;
 
 let blockedPosts = [];
 let blockedUsers = [];
+
 // Function to toggle visibility of the sections
 function showSection(sectionId) {
-    const sections = document.querySelectorAll("section");
-    sections.forEach((section) => {
-      if (section.id === sectionId) {
-        section.classList.remove("hidden");
-      } else {
-        section.classList.add("hidden");
-      }
-    });
+  const sections = document.querySelectorAll("section");
+  sections.forEach((section) => {
+    if (section.id === sectionId) {
+      section.classList.remove("hidden");
+    } else {
+      section.classList.add("hidden");
+    }
+  });
 }
 
- // Function to render posts in the "Feed" section
+  // Function to render posts in the "Feed" section
 function renderFeed(posts) {
   const feedSection = document.getElementById("feed");
   feedSection.innerHTML = "<h2>Feed</h2>";
@@ -40,10 +41,9 @@ function renderFeed(posts) {
 
   function isPostBlocked(post) {
     // Check if the post ID is in the blockedPosts array
-  return blockedPosts.includes(post.id);
+    return blockedPosts.includes(post.id);
 }
   
-
 // Function to handle form submission (Login)
 function handleLogin(event) {
     event.preventDefault();
@@ -114,26 +114,27 @@ function renderFollowing(posts) {
   }
 }
 
+
 // Function to render posts in the "My Posts" section
 function renderMyPosts(posts) {
-  const myPostsSection = document.getElementById("my-posts");
+    const myPostsSection = document.getElementById("my-posts");
     myPostsSection.innerHTML = "<h2>My Posts</h2>";
     for (const post of posts) {
-    const postElement = document.createElement("div");
-    postElement.className = "my-posts-item";
-    postElement.innerHTML = `<h3>${post.title}</h3><p>${post.body}</p>`;
-    myPostsSection.appendChild(postElement);
-  }
+      const postElement = document.createElement("div");
+      postElement.className = "my-posts-item";
+      postElement.innerHTML = `<h3>${post.title}</h3><p>${post.body}</p>`;
+      myPostsSection.appendChild(postElement);
+    }
 }
 
 // Function to render the user's profile
 function renderProfile(user) {
-  const profileSection = document.getElementById("profile");
-  profileSection.innerHTML = `<h2>Profile</h2>
-  <p>Username: ${user.username}</p>
-  <p>Email: ${user.email}</p>
-  <p>Zip-code: ${user.address.zipcode}</p>
-  <p>Membership: ${user.premium ? "Premium" : "Free"}</p>`;
+    const profileSection = document.getElementById("profile");
+    profileSection.innerHTML = `<h2>Profile</h2>
+    <p>Username: ${user.username}</p>
+    <p>Email: ${user.email}</p>
+    <p>Zip-code: ${user.address.zipcode}</p>
+    <p>Membership: ${user.premium ? "Premium" : "Free"}</p>`;
 }
 
 // Function to fetch posts for following
@@ -174,16 +175,17 @@ function fetchMyPosts() {
 
 // Function to fetch user profile data
 function fetchUserProfile() {
-    fetch(`https://jsonplaceholder.typicode.com/users/${loggedInUser.id}`)
-      .then((response) => response.json())
-      .then((user) => {
-        renderProfile(user);
-      })
-      .catch((error) => {
-        console.error("Error fetching user profile:", error);
-        alert("Failed to fetch user profile. Please try again later.");
-  });
+  fetch(`https://jsonplaceholder.typicode.com/users/${loggedInUser.id}`)
+    .then((response) => response.json())
+    .then((user) => {
+      renderProfile(user); // Render the user details
+    })
+    .catch((error) => {
+      console.error("Error fetching user profile:", error);
+      alert("Failed to fetch user profile. Please try again later.");
+    });
 }
+
 
 
 // Function to handle premium membership upgrade (Mock payment)
@@ -222,19 +224,17 @@ function handleBlockUser(userId) {
     alert("You need to be a premium user to block users.");
   }
 }
-
 // Event listener for premium membership button
 const premiumBtn = document.getElementById("premium-btn");
 premiumBtn.addEventListener("click", handleUpgradeToPremium);
 
 
 // Event listener for "Following" link
-  const followingLink = document.querySelector('a[href="#following"]');
-  followingLink.addEventListener("click", () => {
+const followingLink = document.querySelector('a[href="#following"]');
+followingLink.addEventListener("click", () => {
   fetchFollowingPosts();
   showSection("following");
 });
-
 // Event listener for "My Posts" link
 const myPostsLink = document.querySelector('a[href="#my-posts"]');
 myPostsLink.addEventListener("click", () => {
@@ -242,17 +242,29 @@ myPostsLink.addEventListener("click", () => {
   showSection("my-posts");
 });
 
+
 // Event listener for "Profile" link
 const profileLink = document.querySelector('a[href="#profile"]');
 profileLink.addEventListener("click", () => {
   fetchUserProfile();
   showSection("profile");
+
+  // Show the section with block buttons
+  // showSection("block-section");
 });
 
-// // Set initial state of the application
-// let loggedInUser = null;
-// showSection("login-section");
-
+// // Event listener for blocking a post
+// const blockPostButton = document.getElementById("block-post-button");
+// blockPostButton.addEventListener("click", () => {
+//   const postIdToBlock = 1; // Replace with the actual post ID to block
+//   handleBlockPost(postIdToBlock);
+// });
+// // Event listener for blocking a user
+// const blockUserButton = document.getElementById("block-user-button");
+// blockUserButton.addEventListener("click", () => {
+//   const userIdToBlock = 2; // Replace with the actual user ID to block
+//   handleBlockUser(userIdToBlock);
+// });
 
 // Event listener for login form submission
 const loginForm = document.getElementById("login-form");
