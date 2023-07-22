@@ -9,80 +9,78 @@
 
 </head>
 <body>
-    <div id="app">
+  <div id="app">
     <!-- Navigation Bar -->
-    <nav>
-        <a href="#feed">Feed</a>
-        <a href="#my-posts">My Posts</a>
-        <a href="#following">Following</a>
-        <a href="#profile">Profile</a>
-        <a href="#logout">Logout</a>
-      </nav>
+  <nav>
+    <a href="#feed">Feed</a>
+    <a href="#my-posts">My Posts</a>
+    <a href="#following">Following</a>
+    <a href="#profile">Profile</a>
+    <a href="#logout">Logout</a>
+  </nav>
 
-      <!-- Login/Registration Form -->
-    <section id="login-section">
-        <h2>Login or Register</h2>
-        <form id="login-form">
-          <label for="username">Username or Email:</label>
-          <input type="text" id="username" required>
-  
-          <label for="password">Zip-code (Password):</label>
-          <input type="password" id="password" required>
-  
-          <button type="submit">Login</button>
-          <button type="button" id="register-btn">Register</button>
-        </form>
-      </section>
+    <!-- Login/Registration Form -->
+  <section id="login-section">
+    <h2>Login or Register</h2>
+    <form id="login-form">
+      <label for="username">Username or Email:</label>
+      <input type="text" id="username" required>
+      <label for="password">Zip-code (Password):</label>
+      <input type="password" id="password" required>
+      <button type="submit">Login</button>
+      <button type="button" id="register-btn">Register</button>
+    </form>
+  </section>
 
-       <!-- Feed Section -->
-    <section id="feed" class="hidden">
-        <h2>Feed</h2>
-        <!-- Placeholder for posts -->
-        <div class="feed-item">
-          <h3>Post 1</h3>
-          <p>This is the content of post 1.</p>
-        </div>
-        <!-- Add more post items here -->
-      </section>
+          <!-- Feed Section -->
+  <section id="feed" class="hidden">
+  <h2>Feed</h2>
+  <!-- Placeholder for posts -->
+  <div class="feed-item">
+    <h3>Post 1</h3>
+    <p>This is the content of post 1.</p>
+    <button class="block-button">Block This Post</button> <!-- Add Block Button -->
+  </div>
+  
+  </section>
 
       <!-- My Posts Section -->
-    <section id="my-posts" class="hidden">
-        <h2>My Posts</h2>
-        <!-- Placeholder for user's posts -->
-        <div class="my-posts-item">
-          <h3>My Post 1</h3>
-          <p>This is my own post.</p>
-        </div>
-        <!-- Add more user's post items here -->
-      </section>
+  <section id="my-posts" class="hidden">
+    <h2>My Posts</h2>
+    <!-- Placeholder for user's posts -->
+    <div class="my-posts-item">
+      <h3>My Post 1</h3>
+      <p>This is my own post.</p>
+    </div>
+  </section>
 
-      <!-- Following Section -->
-    <section id="following" class="hidden">
-        <h2>Following</h2>
-        <!-- Placeholder for followed friends' posts -->
-        <div class="following-item">
-          <h3>Friend's Post 1</h3>
-          <p>This is my friend's post.</p>
-        </div>
-        <!-- Add more followed friends' post items here -->
-    </section>
+       <!-- Following Section -->
+<section id="following" class="hidden">
+  <h2>Following</h2>
+  <!-- Placeholder for followed friends' posts -->
+  <div class="following-item">
+    <h3>Friend's Post 1</h3>
+    <p>This is my friend's post.</p>
+    <button class="block-button">Block This Post</button> <!-- Add Block Button -->
+  </div>
+</section>
 
       
     <!-- Profile Section -->
-    <section id="profile" class="hidden">
+  <section id="profile" class="hidden">
       <h2>Profile</h2>
       <p id="username">Username: Your Username</p>
       <p id="email">Email: your_email@example.com</p>
       <p id="zipcode">Zip-code: 12345</p>
       <p id="membership">Membership: Free</p>
-    </section>
+  </section>
 
 
       <!-- Logout Section -->
-    <section id="logout" class="hidden">
+  <section id="logout" class="hidden">
         <h2>Logout</h2>
         <p>Thank you for using our app. You have been logged out.</p>
-      </section>
+  </section>
   
 
     </div>
