@@ -15,8 +15,39 @@ function showSection(sectionId) {
     }
   });
 }
+function handleLike(postId){
+  const postElement = document.getElementById(`post-${postId}`);
+  const likesElement = postElement.querySelector(".likes");
+  const currentLikes = parseInt(likesElement.textContent.split(" ")[0]);
+  likesElement.textContent = `${currentLikes + 1} Likes`;
+}
+// Function to handle post commenting
+function handleComment(postId) {
+  const postElement = document.getElementById(`post-${postId}`);
+  const commentsElement = postElement.querySelector(".comments");
+  const currentComments = parseInt(commentsElement.textContent.split(" ")[0]);
+  const newCommentCount = currentComments + 1;
+  const commentText = newCommentCount === 1 ? "1 Comment" : `${newCommentCount} Comments`;
+  commentsElement.textContent = commentText;
+}
+// Event listener for post commenting
+document.addEventListener("click", (event) => {
+  if (event.target.classList.contains("comment-button")) {
+    const postId = event.target.parentNode.getAttribute("data-post-id");
+    handleComment(postId);
+  }
+});
+// Event listener for post liking
+document.addEventListener("click", (event) => {
+  if (event.target.classList.contains("like-button")) {
+    const postId = event.target.parentNode.getAttribute("data-post-id");
+    handleLike(postId);
+  }
+});
 
-  // Function to render posts in the "Feed" section
+
+
+// Function to render posts in the "Feed" section
 function renderFeed(posts) {
   const feedSection = document.getElementById("feed");
   feedSection.innerHTML = "<h2>Feed</h2>";
@@ -25,15 +56,21 @@ function renderFeed(posts) {
     if (!isPostBlocked(post)) {
       const postElement = document.createElement("div");
       postElement.className = "feed-item";
-      postElement.innerHTML = `<h3>${post.title}</h3><p>${post.body}</p>`;
-      
+      postElement.setAttribute("data-post-id", post.id);
+      postElement.innerHTML = `<h3>${post.title}</h3><p>${post.body}</p>
+        <button class="like-button">Like</button>
+        <button class="comment-button">Comment</button>
+        <p class="likes">0 Likes</p>
+        <p class="comments">0 Comments</p>
+        <p class="views">0 Views</p>`;
+
       // Add Block Button
       const blockButton = document.createElement("button");
       blockButton.textContent = "Block This Post";
       blockButton.className = "block-button";
       blockButton.addEventListener("click", () => handleBlockPost(post.id));
       postElement.appendChild(blockButton);
-      
+
       feedSection.appendChild(postElement);
     }
   }
@@ -41,26 +78,43 @@ function renderFeed(posts) {
 
   function isPostBlocked(post) {
     // Check if the post ID is in the blockedPosts array
-    return blockedPosts.includes(post.id);
+  return blockedPosts.includes(post.id);
 }
+// Function to handle post views
+  function handleView(postId) {
+ 
+  const postElement = document.getElementById(`post-${postId}`);
+  const viewsElement = postElement.querySelector(".views");
+  const currentViews = parseInt(viewsElement.textContent.split(" ")[0]);
+  viewsElement.textContent = `${currentViews + 1} Views`;
+}
+// Event listener for post views
+document.addEventListener("DOMContentLoaded", () => {
+  const postElements = document.querySelectorAll(".feed-item");
+  postElements.forEach((postElement) => {
+    const postId = postElement.getAttribute("data-post-id");
+    handleView(postId);
+  });
+});
+
   
 // Function to handle form submission (Login)
 function handleLogin(event) {
     event.preventDefault();
-    const username = document.getElementById("username").value;
-    const password = document.getElementById("password").value;
+  const username = document.getElementById("username").value;
+  const password = document.getElementById("password").value;
   
     // Perform a fetch to the backend with the login data
     fetch("https://jsonplaceholder.typicode.com/users")
       .then((response) => response.json())
       .then((users) => {
-        const foundUser = users.find(
-          (user) =>
-            (user.username === username || user.email === username) &&
-            user.address.zipcode === password
-        );
+    const foundUser = users.find(
+    (user) =>
+    (user.username === username || user.email === username) &&
+    user.address.zipcode === password
+    );
   
-        if (foundUser) {
+  if (foundUser) {
           loggedInUser = foundUser;
           showSection("feed");
           fetchPosts();
@@ -68,11 +122,11 @@ function handleLogin(event) {
         } else {
           alert("Invalid credentials. Please try again.");
         }
-      })
-      .catch((error) => {
-        console.error("Error fetching user data:", error);
-        alert("Failed to fetch user data. Please try again later.");
-    });
+})
+    .catch((error) => {
+    console.error("Error fetching user data:", error);
+    alert("Failed to fetch user data. Please try again later.");
+  });
 }
 
 // Function to fetch posts
@@ -86,7 +140,7 @@ function fetchPosts() {
       .catch((error) => {
         console.error("Error fetching posts:", error);
         alert("Failed to fetch posts. Please try again later.");
-    });
+  });
 }
 
 // Function to handle Logout
@@ -156,7 +210,7 @@ function fetchFollowingPosts() {
       .catch((error) => {
         console.error("Error fetching following posts:", error);
         alert("Failed to fetch following posts. Please try again later.");
-    });
+  });
 }     
 
 //  Function to fetch user's own posts
@@ -169,7 +223,7 @@ function fetchMyPosts() {
     .catch((error) => {
       console.error("Error fetching user's posts:", error);
       alert("Failed to fetch user's posts. Please try again later.");
-    });
+  });
 }
 
 
@@ -183,7 +237,7 @@ function fetchUserProfile() {
     .catch((error) => {
       console.error("Error fetching user profile:", error);
       alert("Failed to fetch user profile. Please try again later.");
-    });
+  });
 }
 
 

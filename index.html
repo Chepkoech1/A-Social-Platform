@@ -4,35 +4,38 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>A Social Platform</title>
+    <title>My Web App</title>
     <link rel="stylesheet" href="./style.css">
 
 </head>
 <body>
-  <div id="app">
+    <div id="app">
     <!-- Navigation Bar -->
-  <nav>
-    <a href="#feed">Feed</a>
-    <a href="#my-posts">My Posts</a>
-    <a href="#following">Following</a>
-    <a href="#profile">Profile</a>
-    <a href="#logout">Logout</a>
-  </nav>
+    <nav>
+        <a href="#feed">Feed</a>
+        <a href="#my-posts">My Posts</a>
+        <a href="#following">Following</a>
+        <a href="#profile">Profile</a>
+        <a href="#logout">Logout</a>
+      </nav>
 
-    <!-- Login/Registration Form -->
-  <section id="login-section">
-    <!-- <h2>Login or Register</h2> -->
-    <form id="login-form">
-      <label for="username">Username or Email:</label>
-      <input type="text" id="username" required>
-      <label for="password">Zip-code (Password):</label>
-      <input type="password" id="password" required>
-      <button type="submit">Login</button>
-      <!-- <button type="button" id="register-btn">Register</button> -->
-    </form>
-  </section>
- <!-- Feed Section -->
-  <section id="feed" class="hidden">
+      <!-- Login/Registration Form -->
+    <section id="login-section">
+        <h2>Login or Register</h2>
+        <form id="login-form">
+          <label for="username">Username or Email:</label>
+          <input type="text" id="username" required>
+  
+          <label for="password">Zip-code (Password):</label>
+          <input type="password" id="password" required>
+  
+          <button type="submit">Login</button>
+          <button type="button" id="register-btn">Register</button>
+        </form>
+      </section>
+
+      <!-- Feed Section -->
+<section id="feed" class="hidden">
   <h2>Feed</h2>
   <!-- Placeholder for posts -->
   <div class="feed-item">
@@ -45,6 +48,10 @@
     <button class="block-button">Block This Post</button>
   </div>
   
+  
+</section>
+
+ 
   <section id="block-section" class="hidden">
     <h2>Block Post or User</h2>
     <button id="block-post-button">Block This Post</button>
@@ -54,43 +61,42 @@
       <!-- My Posts Section -->
   <section id="my-posts" class="hidden">
     <h2>My Posts</h2>
-    <!-- Placeholder for user's posts -->
-    <div class="my-posts-item">
-      <h3>My Post 1</h3>
-      <p>This is my own post.</p>
-    </div>
+    
+  <!-- Placeholder for user's posts -->
+  <div class="my-posts-item">
+    <h3>My Post 1</h3>
+    <p>This is my own post.</p>
+  </div>
+        
   </section>
 
-       <!-- Following Section -->
+ <!-- Following Section -->
   <section id="following" class="hidden">
   <h2>Following</h2>
   <!-- Placeholder for followed friends' posts -->
   <div class="following-item">
     <h3>Friend's Post 1</h3>
     <p>This is my friend's post.</p>
-    <button class="block-button">Block This Post</button> <!-- Add Block Button -->
+    <button class="block-button">Block This Post</button> 
   </div>
+  
   </section>
 
-      
     <!-- Profile Section -->
   <section id="profile" class="hidden">
-      <h2>Profile</h2>
-      <p id="username">Username: Your Username</p>
-      <p id="email">Email: your_email@example.com</p>
-      <p id="zipcode">Zip-code: 12345</p>
-      <p id="membership">Membership: Free</p>
+    <h2>Profile</h2>
+    <p id="username">Username: Your Username</p>
+    <p id="email">Email: your_email@example.com</p>
+    <p id="zipcode">Zip-code: 12345</p>
+    <p id="membership">Membership: Free</p>
   </section>
-
-
-      <!-- Logout Section -->
+    
+    <!-- Logout Section -->
   <section id="logout" class="hidden">
-        <h2>Logout</h2>
-        <p>Thank you for using our app. You have been logged out.</p>
+    <h2>Logout</h2>
+    <p>Thank you for using our app. You have been logged out.</p>
   </section>
-  
-
-    </div>
+  </div>
 
     <!-- Premium Membership Button (Replace with your actual implementation) -->
   <button id="premium-btn" class="hidden">Upgrade to Premium</button>
