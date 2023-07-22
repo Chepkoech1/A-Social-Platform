@@ -126,3 +126,24 @@ button:hover {
   display: block;
   margin: 0 auto;
 }
+
+/* Styling for blocking buttons */
+#block-section {
+  margin-bottom: 30px;
+}
+
+#block-post-button,
+#block-user-button {
+  padding: 8px 15px;
+  margin-right: 10px;
+  background-color: #dc3545;
+  color: #ffffff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+#block-post-button:hover,
+#block-user-button:hover {
+  background-color: #c82333;
+}
