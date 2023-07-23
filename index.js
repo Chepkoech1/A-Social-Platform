@@ -281,12 +281,14 @@ function handleLike(postId) {
 // Function to handle post commenting
 function handleComment(postId) {
   console.log("Comment button clicked for post with ID:", postId);
-  const postElement = document.getElementById(`post-${postId}`);
-  const commentsElement = postElement.querySelector(".comments");
-  const currentComments = parseInt(commentsElement.textContent.split(" ")[0]);
-  const newCommentCount = currentComments + 1;
-  const commentText = newCommentCount === 1 ? "1 Comment" : `${newCommentCount} Comments`;
-  commentsElement.textContent = commentText;
+  const postElement = document.querySelector(`[data-post-id="${postId}"]`);
+  if (postElement) {
+    const commentsElement = postElement.querySelector(".comments");
+    const currentComments = parseInt(commentsElement.textContent.split(" ")[0]);
+    const newCommentCount = currentComments + 1;
+    const commentText = newCommentCount === 1 ? "1 Comment" : `${newCommentCount} Comments`;
+    commentsElement.textContent = commentText;
+  }
 }
 // Function to handle post views
 function handleView(postId) {
