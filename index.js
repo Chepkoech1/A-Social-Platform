@@ -15,38 +15,6 @@ function showSection(sectionId) {
     }
   });
 }
-function handleLike(postId){
-  const postElement = document.getElementById(`post-${postId}`);
-  const likesElement = postElement.querySelector(".likes");
-  const currentLikes = parseInt(likesElement.textContent.split(" ")[0]);
-  likesElement.textContent = `${currentLikes + 1} Likes`;
-}
-// Function to handle post commenting
-function handleComment(postId) {
-  const postElement = document.getElementById(`post-${postId}`);
-  const commentsElement = postElement.querySelector(".comments");
-  const currentComments = parseInt(commentsElement.textContent.split(" ")[0]);
-  const newCommentCount = currentComments + 1;
-  const commentText = newCommentCount === 1 ? "1 Comment" : `${newCommentCount} Comments`;
-  commentsElement.textContent = commentText;
-}
-// Event listener for post commenting
-document.addEventListener("click", (event) => {
-  if (event.target.classList.contains("comment-button")) {
-    const postId = event.target.parentNode.getAttribute("data-post-id");
-    handleComment(postId);
-  }
-});
-// Event listener for post liking
-document.addEventListener("click", (event) => {
-  if (event.target.classList.contains("like-button")) {
-    const postId = event.target.parentNode.getAttribute("data-post-id");
-    handleLike(postId);
-  }
-});
-
-
-
 // Function to render posts in the "Feed" section
 function renderFeed(posts) {
   const feedSection = document.getElementById("feed");
@@ -78,16 +46,27 @@ function renderFeed(posts) {
 
   function isPostBlocked(post) {
     // Check if the post ID is in the blockedPosts array
-  return blockedPosts.includes(post.id);
+    return blockedPosts.includes(post.id);
 }
 // Function to handle post views
-  function handleView(postId) {
- 
+function handleView(postId) {
   const postElement = document.getElementById(`post-${postId}`);
+  if (!postElement) {
+    console.error(`Post with ID ${postId} not found.`);
+    return;
+  }
+
+  // Update the view count in the UI
   const viewsElement = postElement.querySelector(".views");
+  if (!viewsElement) {
+    console.error(`Views element not found for post with ID ${postId}.`);
+    return;
+  }
+
   const currentViews = parseInt(viewsElement.textContent.split(" ")[0]);
   viewsElement.textContent = `${currentViews + 1} Views`;
 }
+
 // Event listener for post views
 document.addEventListener("DOMContentLoaded", () => {
   const postElements = document.querySelectorAll(".feed-item");
@@ -101,20 +80,20 @@ document.addEventListener("DOMContentLoaded", () => {
 // Function to handle form submission (Login)
 function handleLogin(event) {
     event.preventDefault();
-  const username = document.getElementById("username").value;
-  const password = document.getElementById("password").value;
+    const username = document.getElementById("username").value;
+    const password = document.getElementById("password").value;
   
     // Perform a fetch to the backend with the login data
     fetch("https://jsonplaceholder.typicode.com/users")
       .then((response) => response.json())
       .then((users) => {
-    const foundUser = users.find(
-    (user) =>
-    (user.username === username || user.email === username) &&
-    user.address.zipcode === password
-    );
+        const foundUser = users.find(
+          (user) =>
+            (user.username === username || user.email === username) &&
+            user.address.zipcode === password
+        );
   
-  if (foundUser) {
+        if (foundUser) {
           loggedInUser = foundUser;
           showSection("feed");
           fetchPosts();
@@ -122,25 +101,36 @@ function handleLogin(event) {
         } else {
           alert("Invalid credentials. Please try again.");
         }
-})
-    .catch((error) => {
-    console.error("Error fetching user data:", error);
-    alert("Failed to fetch user data. Please try again later.");
+      })
+      .catch((error) => {
+        console.error("Error fetching user data:", error);
+        alert("Failed to fetch user data. Please try again later.");
   });
 }
 
 // Function to fetch posts
 function fetchPosts() {
+
+  if(loggedInUser){
     fetch("https://jsonplaceholder.typicode.com/posts")
       .then((response) => response.json())
       .then((posts) => {
         renderFeed(posts.slice(0, 20));
         // Render the posts in the "Feed" section
+         // Call handleView after rendering the posts
+         const postElements = document.querySelectorAll(".feed-item");
+         postElements.forEach((postElement) => {
+           const postId = postElement.getAttribute("data-post-id");
+           handleView(postId);
+         });
       })
       .catch((error) => {
         console.error("Error fetching posts:", error);
         alert("Failed to fetch posts. Please try again later.");
-  });
+
+         
+    });
+  }
 }
 
 // Function to handle Logout
@@ -210,7 +200,7 @@ function fetchFollowingPosts() {
       .catch((error) => {
         console.error("Error fetching following posts:", error);
         alert("Failed to fetch following posts. Please try again later.");
-  });
+    });
 }     
 
 //  Function to fetch user's own posts
@@ -223,7 +213,7 @@ function fetchMyPosts() {
     .catch((error) => {
       console.error("Error fetching user's posts:", error);
       alert("Failed to fetch user's posts. Please try again later.");
-  });
+    });
 }
 
 
@@ -237,7 +227,7 @@ function fetchUserProfile() {
     .catch((error) => {
       console.error("Error fetching user profile:", error);
       alert("Failed to fetch user profile. Please try again later.");
-  });
+    });
 }
 
 
@@ -278,6 +268,63 @@ function handleBlockUser(userId) {
     alert("You need to be a premium user to block users.");
   }
 }
+// function to handle post liking
+function handleLike(postId) {
+  console.log("Like button clicked for post with ID:", postId);
+  const postElement = document.querySelector(`[data-post-id="${postId}"]`);
+  if (postElement) {
+    const likesElement = postElement.querySelector(".likes");
+    const currentLikes = parseInt(likesElement.textContent.split(" ")[0]);
+    likesElement.textContent = `${currentLikes + 1} Likes`;
+  }
+}
+// Function to handle post commenting
+function handleComment(postId) {
+  console.log("Comment button clicked for post with ID:", postId);
+  const postElement = document.getElementById(`post-${postId}`);
+  const commentsElement = postElement.querySelector(".comments");
+  const currentComments = parseInt(commentsElement.textContent.split(" ")[0]);
+  const newCommentCount = currentComments + 1;
+  const commentText = newCommentCount === 1 ? "1 Comment" : `${newCommentCount} Comments`;
+  commentsElement.textContent = commentText;
+}
+// Function to handle post views
+function handleView(postId) {
+ 
+  // Update the view count in the UI
+  const postElement = document.querySelector(`[data-post-id="${postId}"]`);
+  if (postElement) {
+    const viewsElement = postElement.querySelector(".views");
+    const currentViews = parseInt(viewsElement.textContent.split(" ")[0]);
+    viewsElement.textContent = `${currentViews + 1} Views`;
+  }
+}
+// Event listener for post liking
+document.addEventListener("click", (event) => {
+  if (event.target.classList.contains("like-button")) {
+    const postId = event.target.parentNode.getAttribute("data-post-id");
+    handleLike(postId);
+  }
+});
+
+
+// Event listener for post commenting
+document.addEventListener("click", (event) => {
+  if (event.target.classList.contains("comment-button")) {
+    const postId = event.target.parentNode.getAttribute("data-post-id");
+    handleComment(postId);
+  }
+});
+// Event listener for post views
+document.addEventListener("DOMContentLoaded", () => {
+  const postElements = document.querySelectorAll(".feed-item");
+  postElements.forEach((postElement) => {
+    const postId = postElement.getAttribute("data-post-id");
+    handleView(postId);
+  });
+});
+
+
 // Event listener for premium membership button
 const premiumBtn = document.getElementById("premium-btn");
 premiumBtn.addEventListener("click", handleUpgradeToPremium);
@@ -327,6 +374,7 @@ loginForm.addEventListener("submit", handleLogin);
 // Event listener for Logout link
 const logoutLink = document.querySelector('a[href="#logout"]');
 logoutLink.addEventListener("click", handleLogout);
+// })
 
 // Set initial state of the application
 // let loggedInUser = null;
