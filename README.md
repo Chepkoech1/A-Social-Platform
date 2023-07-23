@@ -5,6 +5,7 @@
 
 ## Links
 - Accessible link for the deployed project.
+  
 `https://a-social-platform.vercel.app/`
 
 ## To Get Started
